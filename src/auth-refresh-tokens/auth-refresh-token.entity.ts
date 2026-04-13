@@ -2,11 +2,11 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity({ name: 'AuthRefreshTokens' })
 export class AuthRefreshToken {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column()
-    userId: number;
+    userId: string;
 
     @Column({ type: 'uuid' })
     sessionId: string;

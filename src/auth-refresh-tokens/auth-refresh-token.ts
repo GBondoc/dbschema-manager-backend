@@ -16,7 +16,7 @@ export class AuthRefreshTokensService {
     }
 
     // luăm sesiunile active ale unui user (puține în mod normal)
-    findActiveByUserId(userId: number) {
+    findActiveByUserId(userId: string) {
         return this.repo.find({
         where: {
             userId,
@@ -28,7 +28,7 @@ export class AuthRefreshTokensService {
         });
     }
 
-    softDeleteById(id: number) {
+    softDeleteById(id: string) {
         return this.repo.update({ id }, { deletedAt: new Date() });
     }
 
@@ -36,7 +36,7 @@ export class AuthRefreshTokensService {
         return this.repo.update({ sessionId }, { deletedAt: new Date() });
     }
 
-    softDeleteAllForUser(userId: number) {
+    softDeleteAllForUser(userId: string) {
         return this.repo.update({ userId }, { deletedAt: new Date() });
     }
 }

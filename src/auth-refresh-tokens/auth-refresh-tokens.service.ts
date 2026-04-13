@@ -26,7 +26,7 @@ export class AuthRefreshTokensService {
         });
     }
 
-    softDeleteById(id: number) {
+    softDeleteById(id: string) {
         return this.repo.update({ id }, { deletedAt: new Date(), updatedAt: new Date() });
     }
 

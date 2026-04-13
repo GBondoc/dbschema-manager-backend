@@ -54,7 +54,7 @@ export class AuthService {
         return this.issueTokensAndCreateSession(user.id, user.email);
     }
 
-    private async issueTokensAndCreateSession(userId: number, email: string, sessionId?: string) {
+    private async issueTokensAndCreateSession(userId: string, email: string, sessionId?: string) {
         const accessSecret = this.config.get<string>("JWT_ACCESS_SECRET");
         const accessExp = this.config.get<string>("JWT_ACCESS_EXPIRES", "15m") as StringValue;
         const refreshExp = this.config.get<string>("JWT_REFRESH_EXPIRES", "7d");
@@ -99,7 +99,7 @@ export class AuthService {
         const raw = await this.redis.client.get(`rt:${sessionId}`);
         if (!raw) throw new UnauthorizedException('Invalid session');
 
-        const data = JSON.parse(raw) as { userId: number; tokenHashed: string; jwtId: string };
+        const data = JSON.parse(raw) as { userId: string; tokenHashed: string; jwtId: string };
 
         const ok = await bcrypt.compare(refreshToken, data.tokenHashed);
         if (!ok) throw new UnauthorizedException('Invalid refresh token');
