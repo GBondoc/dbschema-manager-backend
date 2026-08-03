@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 
 import { AuthService } from './auth.service';
@@ -18,7 +18,14 @@ import { RedisModule } from 'src/redis/redis.module';
     UsersModule,
     AuthRefreshTokensModule,
     RedisModule,
-    JwtModule.register({}),
+    JwtModule.registerAsync({
+    imports: [ConfigModule],
+    inject: [ConfigService],
+    useFactory: (config) => ({
+      secret: config.get('JWT_ACCESS_SECRET'),
+      signOptions: { expiresIn: '15m' },
+    }),
+})
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],

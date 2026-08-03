@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { RedisModule } from './redis/redis.module';
 import { AiChatModule } from './ai-chat/ai-chat.module';
+import { ProjectModule } from './projects/project.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AiChatModule } from './ai-chat/ai-chat.module';
     AuthModule,
     RedisModule,
     AiChatModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],
