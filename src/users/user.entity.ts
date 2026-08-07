@@ -1,22 +1,41 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
-@Entity({ name: 'users' })
+import { Project } from "../projects/project.entity";
+
+@Entity({ name: "users" })
 export class User {
-    @PrimaryGeneratedColumn('uuid')
-    id!: string;
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
-    @Column({ unique: true })
-    email!: string;
+  @Column({ unique: true })
+  email!: string;
 
-    @Column({ name: 'hashedPassword' })
-    hashedPassword!: string;
+  @Column({ name: "hashedPassword" })
+  hashedPassword!: string;
 
-    @Column({ name: 'displayedName', type: 'varchar', nullable: true })
-    displayedName!: string | null;
+  @Column({
+    name: "displayedName",
+    type: "varchar",
+    nullable: true,
+  })
+  displayedName!: string | null;
 
-    @CreateDateColumn({ name: 'created_at' })
-    createdAt!: Date;
+  @OneToMany(
+    () => Project,
+    (project) => project.owner,
+  )
+  projects!: Project[];
 
-    @UpdateDateColumn({ name: 'updated_at' })
-    updatedAt!: Date;
+  @CreateDateColumn({ name: "created_at" })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ name: "updated_at" })
+  updatedAt!: Date;
 }

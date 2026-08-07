@@ -7,7 +7,6 @@ import {
 
 export enum DatabaseDialect {
   MYSQL = 'MYSQL',
-  POSTGRES = 'POSTGRES',
 }
 
 export class CreateProjectDto {
