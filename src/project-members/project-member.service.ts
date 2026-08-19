@@ -182,4 +182,44 @@ export class ProjectMemberService {
     };
   }
 
+  async leaveProject(
+    projectId: string,
+    userId: string,
+  ) {
+    const project = await this.projectRepo.findOne({
+      where: {
+        id: projectId,
+      },
+    });
+
+    if (!project) {
+      throw new NotFoundException('Project not found');
+    }
+
+    if (project.ownerUserId === userId) {
+      throw new ForbiddenException(
+        'Project owner cannot leave the project',
+      );
+    }
+
+    const membership =
+      await this.projectMemberRepo.findOne({
+        where: {
+          projectId,
+          userId,
+        },
+      });
+
+    if (!membership) {
+      throw new NotFoundException(
+        'Project membership not found',
+      );
+    }
+
+    await this.projectMemberRepo.remove(membership);
+
+    return {
+      left: true,
+    };
+  }
 }

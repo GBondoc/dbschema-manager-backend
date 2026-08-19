@@ -54,6 +54,17 @@ export class ProjectMemberController {
     );
   }
 
+  @Delete(':projectId/members/me')
+  leaveProject(
+    @Param('projectId') projectId: string,
+    @CurrentUser() user: CurrentUserType,
+  ) {
+    return this.projectMemberService.leaveProject(
+      projectId,
+      user.id,
+    );
+  }
+
   @Delete(':projectId/members/:memberId')
   removeMember(
     @Param('projectId') projectId: string,
