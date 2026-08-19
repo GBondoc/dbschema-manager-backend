@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { RedisModule } from './redis/redis.module';
 import { AiChatModule } from './ai-chat/ai-chat.module';
 import { ProjectModule } from './projects/project.module';
+import { ProjectInviteModule } from './project-members/project-invite.module';
+import { ProjectMemberModule } from './project-members/project-member.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { ProjectModule } from './projects/project.module';
     RedisModule,
     AiChatModule,
     ProjectModule,
+    ProjectInviteModule,
+    ProjectMemberModule,
   ],
   controllers: [AppController],
   providers: [AppService],
