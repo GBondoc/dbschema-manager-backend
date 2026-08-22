@@ -15,6 +15,11 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { ConstraintService } from './constraint.service';
 import { SetPrimaryKeyDto } from './dto/set-primary-key.dto';
 
+import { Patch, Post } from '@nestjs/common';
+
+import { CreateForeignKeyDto } from './dto/create-foreign-key.dto';
+import { UpdateForeignKeyDto } from './dto/update-foreign-key.dto';
+
 type CurrentUserType = {
   id: string;
   email: string;
@@ -84,6 +89,94 @@ export class ConstraintController {
     return this.constraintService.removePrimaryKey(
       projectId,
       tableId,
+      user.id,
+    );
+  }
+
+  @Get('foreign-keys')
+  findForeignKeys(
+    @Param('projectId')
+    projectId: string,
+
+    @Param('tableId')
+    tableId: string,
+
+    @CurrentUser()
+    user: CurrentUserType,
+  ) {
+    return this.constraintService.findForeignKeys(
+      projectId,
+      tableId,
+      user.id,
+    );
+  }
+
+  @Post('foreign-keys')
+  createForeignKey(
+    @Param('projectId')
+    projectId: string,
+
+    @Param('tableId')
+    tableId: string,
+
+    @CurrentUser()
+    user: CurrentUserType,
+
+    @Body()
+    dto: CreateForeignKeyDto,
+  ) {
+    return this.constraintService.createForeignKey(
+      projectId,
+      tableId,
+      user.id,
+      dto,
+    );
+  }
+
+  @Patch('foreign-keys/:constraintId')
+  updateForeignKey(
+    @Param('projectId')
+    projectId: string,
+
+    @Param('tableId')
+    tableId: string,
+
+    @Param('constraintId')
+    constraintId: string,
+
+    @CurrentUser()
+    user: CurrentUserType,
+
+    @Body()
+    dto: UpdateForeignKeyDto,
+  ) {
+    return this.constraintService.updateForeignKey(
+      projectId,
+      tableId,
+      constraintId,
+      user.id,
+      dto,
+    );
+  }
+
+  @Delete('foreign-keys/:constraintId')
+  removeForeignKey(
+    @Param('projectId')
+    projectId: string,
+
+    @Param('tableId')
+    tableId: string,
+
+    @Param('constraintId')
+    constraintId: string,
+
+    @CurrentUser()
+    user: CurrentUserType,
+  ) {
+    return this.constraintService.removeForeignKey(
+      projectId,
+      tableId,
+      constraintId,
       user.id,
     );
   }
