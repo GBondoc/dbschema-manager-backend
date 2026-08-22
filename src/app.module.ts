@@ -9,6 +9,8 @@ import { AiChatModule } from './ai-chat/ai-chat.module';
 import { ProjectModule } from './projects/project.module';
 import { ProjectInviteModule } from './project-members/project-invite.module';
 import { ProjectMemberModule } from './project-members/project-member.module';
+import { TableModule } from './tables/table.module';
+import { ColumnModule } from './columns/column.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { ProjectMemberModule } from './project-members/project-member.module';
     ProjectModule,
     ProjectInviteModule,
     ProjectMemberModule,
+    TableModule,
+    ColumnModule,
   ],
   controllers: [AppController],
   providers: [AppService],
