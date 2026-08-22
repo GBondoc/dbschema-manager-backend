@@ -11,6 +11,7 @@ import { ProjectInviteModule } from './project-members/project-invite.module';
 import { ProjectMemberModule } from './project-members/project-member.module';
 import { TableModule } from './tables/table.module';
 import { ColumnModule } from './columns/column.module';
+import { ConstraintModule } from './constraints/constraint.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { ColumnModule } from './columns/column.module';
     ProjectMemberModule,
     TableModule,
     ColumnModule,
+    ConstraintModule,
   ],
   controllers: [AppController],
   providers: [AppService],
