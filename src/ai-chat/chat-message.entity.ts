@@ -8,20 +8,23 @@ import {
 @Entity('chat_messages')
 export class ChatMessage {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
+
+  @Column('uuid')
+  conversationId!: string;
 
   @Column()
-  role: 'user' | 'assistant';
+  role!: 'user' | 'assistant';
 
   @Column('text')
-  content: string;
+  content!: string;
 
-  @Column({ nullable: true })
-  mode: string;
-
-  @Column()
-  userId: string;
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  sql!: string | null;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 }
